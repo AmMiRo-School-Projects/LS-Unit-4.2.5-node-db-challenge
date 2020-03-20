@@ -14,6 +14,25 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const project = await Projects.getProjectById(req.params.id);
+    const tasks = await Projects.getProjectTasks(req.params.id);
+    const resources = await Projects.getProjectResources(req.params.id);
+    res.status(200).json({
+      id: project.id,
+      name: project.name,
+      description: project.description,
+      completed: project.completed,
+      tasks: tasks,
+      resources: resources
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "there was an error", error: err });
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const newProject = {
