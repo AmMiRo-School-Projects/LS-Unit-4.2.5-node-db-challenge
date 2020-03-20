@@ -19,9 +19,12 @@ exports.up = function(knex) {
         .inTable("projects")
         .onDelete("RESTRICT")
         .onUpdate("CASCADE");
-      tbl.string("description", 550).notNullable();
+      tbl
+        .string("description", 550)
+        .notNullable()
+        .unique();
       tbl.string("notes", 1000);
-      tbl.boolean("completed").defaultTo("false");
+      tbl.boolean("completed").defaultTo(false);
     })
     .createTable("resources", tbl => {
       tbl.increments("id");
