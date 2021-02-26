@@ -23,7 +23,8 @@ router.get("/:id", async (req, res) => {
       id: project.id,
       name: project.name,
       description: project.description,
-      completed: project.completed,
+      // completed: project.completed === 0 ? false : true,
+      completed: !!+project.completed,
       tasks: tasks,
       resources: resources
     });
